@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\videoTranscoderController;
+use App\Models\Transcodes;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::post('encodeVideo', [videoTranscoderController::class, 'gateway']);
+
+Route::get('fetch', function () {
+    return Transcodes::get();
 });

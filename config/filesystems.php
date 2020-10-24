@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'original'),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,16 +43,15 @@ return [
 
     'disks' => [
 
-        'local' => [
+        'original' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app') . DIRECTORY_SEPARATOR . 'original_videos',
         ],
-
-        'converted_videos' => [
+        'converted' => [
             'driver' => 'local',
             'root' => storage_path('app') . DIRECTORY_SEPARATOR . 'converted_videos',
         ],
-        
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
