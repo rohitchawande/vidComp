@@ -25,13 +25,13 @@ class Transcodes extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->setTimezone('Asia/Kolkata')->format('H:i:s d-m-Y');
+        return Carbon::parse($value)->setTimezone('Asia/Kolkata')->format('d-m-Y H:i:s');
     }
 
-    public function getUpdatedAtAttribute($value)
+    public function getCompletedAtAttribute($value)
     {
-        if (!isNull($value)) {
-            return Carbon::parse($value)->setTimezone('Asia/Kolkata')->format('H:i:s d-m-Y');
+        if ($value != '') {
+            return Carbon::parse($value)->setTimezone('Asia/Kolkata')->format('d-m-Y H:i:s');
         }
     }
 }

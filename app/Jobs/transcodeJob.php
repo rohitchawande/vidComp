@@ -56,7 +56,7 @@ class transcodeJob implements ShouldQueue
                 (new videoTranscoderController)->transcodePBmedia($this->inputFileName, $outputFileName, $height, $width, $this->bitrate);
                 $this->updateJobData($outputFileName);
                 break;
-            case 'FF': // disabled due to library clashing
+            case 'FF': // disabled
                 $outputFileName = $this->inputFileName . '_FFMpeg.mp4';
                 (new videoTranscoderController)->transcodeFFMPEG($this->inputFileName, $outputFileName, $height, $width, $this->bitrate);
                 $this->updateJobData($outputFileName);
@@ -76,6 +76,7 @@ class transcodeJob implements ShouldQueue
     {
         $this->transCode->compressed_file_name = $outputFileName;
         $this->transCode->compressed_file_size = Storage::disk('converted')->size($outputFileName);
+        $this->transCode->completed_at = Carbon::now();
         $this->transCode->save();
     }
 }

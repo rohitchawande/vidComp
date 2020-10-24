@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Jobs\transcodeJob;
 use App\Models\Transcodes;
 use FFMpeg\Coordinate\Dimension;
-use FFMpeg;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+use FFMpeg\FFMpeg as NativeFFMpeg;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -44,7 +45,7 @@ class videoTranscoderController extends Controller
     {
         $lowBitrateFormat = (new X264('libmp3lame', 'libx264'))->setKiloBitrate($bitrate);
 
-        NativeFFMpeg::fromDisk('original')
+        FFMpeg::fromDisk('original')
             ->open($inputFilePath)
             ->addFilter(function ($filters) use ($width, $height) {
                 $filters->resize(new Dimension($width, $height));
@@ -60,9 +61,9 @@ class videoTranscoderController extends Controller
 
     public function transcodeFFMPEG($inputFilePath, $outputFileName, $height, $width, $bitrate)
     {
-        $ffmpeg = FFMpeg::create(['timeout' => 3600]);
+        $ffmpeg = NativeFFMpeg::create(['timeout' => 3600]);
 
-        $video = $ffmpeg->open($inputFilePath);
+        $video = $ffmpeg->open(Storage::disk('original')->path('') . $inputFilePath);
 
         $video->filters()
             ->resize(new Dimension($width, $height))

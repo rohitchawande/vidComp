@@ -48,9 +48,9 @@
                                 <input type="radio" name="transcoder" value="PB"
                                     data-bind="checked: radioValue" />PBMedia
                                 <br>
-                                {{-- <input type="radio" name="transcoder" value="FF"
+                                <input type="radio" name="transcoder" value="FF"
                                     data-bind="checked: radioValue" />FFMpeg Native
-                                <br> --}}
+                                <br>
                                 <input type="radio" name="transcoder" value="HB" checked
                                     data-bind="checked: radioValue" />HandBrakeCLI
                             </div>
@@ -160,7 +160,7 @@
                 field: "compressed_file_size",
                 title: "Compressed size"
             }, {
-                field: "update_at",
+                field: "completed_at",
                 title: "Completed on"
             }, {
                 field: "transcoder",

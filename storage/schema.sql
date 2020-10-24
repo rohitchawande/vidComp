@@ -1,16 +1,18 @@
 CREATE TABLE `transcodes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `original_file_name` varchar(255) DEFAULT NULL,
-  `original_file_size` INT DEFAULT NULL,
+  `original_file_size` int(11) DEFAULT NULL,
   `transcoder` varchar(45) DEFAULT NULL,
-  `bitrate` INT DEFAULT NULL,
+  `bitrate` int(11) DEFAULT NULL,
   `resolution` varchar(25) DEFAULT NULL,
   `compressed_file_name` varchar(255) DEFAULT NULL,
-  `compressed_file_size` INT DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT NULL,
-  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  `compressed_file_size` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `completed_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 
