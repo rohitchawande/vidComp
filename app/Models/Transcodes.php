@@ -34,4 +34,17 @@ class Transcodes extends Model
             return Carbon::parse($value)->setTimezone('Asia/Kolkata')->format('d-m-Y H:i:s');
         }
     }
+
+    public function getTranscoderAttribute($value)
+    {
+
+        switch ($value) {
+            case 'PB':
+                return 'PBMedia';
+            case 'FF':
+                return 'FFMpeg Native';
+            case 'HB':
+                return 'HandBrakeCLI';
+        }
+    }
 }
