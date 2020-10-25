@@ -13,7 +13,7 @@ class CreateTranscodeTable extends Migration
      */
     public function up()
     {
-        Schema::create('transcode', function (Blueprint $table) {
+        Schema::create('transcodes', function (Blueprint $table) {
             $table->id();
             $table->string('original_file_name', 255);
             $table->integer('original_file_size');
@@ -34,6 +34,6 @@ class CreateTranscodeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transcode');
+        Schema::dropIfExists('transcodes');
     }
 }

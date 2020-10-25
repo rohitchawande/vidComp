@@ -28,7 +28,7 @@ class videoTranscoderController extends Controller
 
         Storage::put($newFileName, File::get($request->file('video_file')->path()));
 
-        $transCode = Transcodes::create([
+        $transCodeModel = Transcodes::create([
             "original_file_name" => $fileName,
             "original_file_size" => $fileSize,
             "transcoder" => $transcoder,
@@ -36,7 +36,7 @@ class videoTranscoderController extends Controller
             "resolution" => $resolution
         ]);
 
-        transcodeJob::dispatch($transCode, $newFileName, $transcoder, $bitrate, $resolution);
+        transcodeJob::dispatch($transCodeModel, $newFileName, $transcoder, $bitrate, $resolution);
 
         return Redirect::to('/');
     }
@@ -63,7 +63,7 @@ class videoTranscoderController extends Controller
     {
         $ffmpeg = NativeFFMpeg::create(['timeout' => 3600]);
 
-        $video = $ffmpeg->open(Storage::disk('original')->path('') . $inputFilePath);
+        $video = $ffmpeg->open(Storage::disk('original')->path($inputFilePath));
 
         $video->filters()
             ->resize(new Dimension($width, $height))
@@ -81,8 +81,7 @@ class videoTranscoderController extends Controller
     public function transcodeHandBrakeCLI($inputFilePath, $outputFileName, $height, $width, $bitrate)
     {
 
-        $execString = "HandBrakeCLI -i " . Storage::disk('original')->path('') . $inputFilePath . " -o " . Storage::disk('converted')->path('') . $outputFileName . " -e x264 -b $bitrate -w $width -l $height";
-        // echo $execString;
+        $execString = "HandBrakeCLI -i " . Storage::disk('original')->path($inputFilePath) . " -o " . Storage::disk('converted')->path($outputFileName) . " -e x264 -b $bitrate -w $width -l $height";
 
         shell_exec($execString);
     }

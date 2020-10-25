@@ -5,8 +5,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-use function PHPUnit\Framework\isNull;
-
 class Transcodes extends Model
 {
     protected $table = 'transcodes';
@@ -37,7 +35,6 @@ class Transcodes extends Model
 
     public function getTranscoderAttribute($value)
     {
-
         switch ($value) {
             case 'PB':
                 return 'PBMedia';
@@ -45,6 +42,23 @@ class Transcodes extends Model
                 return 'FFMpeg Native';
             case 'HB':
                 return 'HandBrakeCLI';
+        }
+    }
+
+    public function getBitrateAttribute($value)
+    {
+        return $value . "kbps";
+    }
+
+    public function getOriginalFileSizeAttribute($value)
+    {
+        return round((($value / 1024) / 1024), 2) . "MB";
+    }
+
+    public function getCompressedFileSizeAttribute($value)
+    {
+        if ($value != '') {
+            return round((($value / 1024) / 1024), 2) . "MB";
         }
     }
 }
